@@ -1,18 +1,23 @@
 import { Component, signal } from '@angular/core';
 import { HeaderComponent } from "./header/header.component";
-import { User } from "./user/user";
-import { DUMMY_USERS } from '../../public/resources/dummy-users';   
+import { UserComponent, User } from "./user/user";
+import { DUMMY_USERS } from '../../public/resources/dummy-users';
+import { Tasks } from "./tasks/tasks";   
+
+
+
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, User],
+  imports: [HeaderComponent, UserComponent, Tasks],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   users = DUMMY_USERS;
+  selectedUser = this.users[0];
 
-  onSelectedUser(userId: string) {
-    console.log('Selected user ID:', userId);
+  onSelectedUser(user: User) {
+    this.selectedUser = user;
   }
 }
