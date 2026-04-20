@@ -11,4 +11,8 @@ import { DUMMY_USERS } from '../../public/resources/dummy-users';
 })
 export class App {
   users = DUMMY_USERS;
+
+  onSelectedUser(userId: string) {
+    console.log('Selected user ID:', userId);
+  }
 }
