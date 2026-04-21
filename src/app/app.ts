@@ -4,9 +4,6 @@ import { UserComponent, User } from "./user/user";
 import { DUMMY_USERS } from '../../public/resources/dummy-users';
 import { Tasks } from "./tasks/tasks";   
 
-
-
-
 @Component({
   selector: 'app-root',
   imports: [HeaderComponent, UserComponent, Tasks],
@@ -15,7 +12,7 @@ import { Tasks } from "./tasks/tasks";
 })
 export class App {
   users = DUMMY_USERS;
-  selectedUser = this.users[0];
+  selectedUser?: User;
 
   onSelectedUser(user: User) {
     this.selectedUser = user;
