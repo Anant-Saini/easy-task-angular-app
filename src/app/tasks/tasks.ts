@@ -3,15 +3,17 @@ import { TaskComponent } from './task-component/task-component';
 import { type Task } from './task-component/task-model';
 import { DUMMY_TASKS } from '../../../public/resources/dummy-tasks';
 import { type User } from '../user/user-model';
+import { NewTaskComponent } from "./new-task-component/new-task-component";
 
 @Component({
   selector: 'app-tasks',
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewTaskComponent],
   templateUrl: './tasks.html',
   styleUrl: './tasks.css',
 })
 export class Tasks {
   @Input({ required: true }) selectedUser!: User;
+  isAddingTask: boolean = false;
   tasks: Task[] = DUMMY_TASKS;
 
   get selectedUserTasks(): Task[] {
@@ -20,5 +22,12 @@ export class Tasks {
 
   onCompleteTask(taskId: string) {
     this.tasks = this.tasks.filter((task) => task.id !== taskId);
+  }
+
+  onStartAddTask() {
+    this.isAddingTask = true;
+  }
+  onCancelAddTask() {
+    this.isAddingTask = false;
   }
 }
