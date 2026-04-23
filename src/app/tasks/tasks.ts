@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { TaskComponent } from './task-component/task-component';
-import { type Task } from './task-component/task-model';
+import { type NewTaskData, type Task } from './task-component/task-model';
 import { DUMMY_TASKS } from '../../../public/resources/dummy-tasks';
 import { type User } from '../user/user-model';
-import { NewTaskComponent } from "./new-task-component/new-task-component";
+import { NewTaskComponent } from './new-task-component/new-task-component';
 
 @Component({
   selector: 'app-tasks',
@@ -28,6 +28,16 @@ export class Tasks {
     this.isAddingTask = true;
   }
   onCancelAddTask() {
+    this.isAddingTask = false;
+  }
+
+  onNewTaskSubmit(newTask: NewTaskData) {
+    let addedTask: Task = {
+      id: crypto.randomUUID(),
+      userId: this.selectedUser.id,
+      ...newTask,
+    };
+    this.tasks.unshift(addedTask);
     this.isAddingTask = false;
   }
 }
