@@ -8,6 +8,17 @@ import { NewTaskData, Task } from "./task-component/task-model";
  export class TasksService {
     private tasks: Task[] = DUMMY_TASKS;
 
+    constructor() {
+        const storedTasks = localStorage.getItem('tasks');
+        if (storedTasks) {
+            this.tasks = JSON.parse(storedTasks);
+        }
+    }
+
+    private saveTasks() {
+        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    }
+
     getTasksForUser(userId: string): Task[] {
         return this.tasks.filter((task) => task.userId === userId);
     }
@@ -18,9 +29,11 @@ import { NewTaskData, Task } from "./task-component/task-model";
           ...newTask,
         };
         this.tasks = [addedTask, ...this.tasks];
+        this.saveTasks();
     }
     removeTask(taskId: string) {
         this.tasks = this.tasks.filter((task) => task.id !== taskId);
+        this.saveTasks();
     }
 
 }
